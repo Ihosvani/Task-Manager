@@ -1,0 +1,26 @@
+.right-item{
+  margin: 0px 15px 0px 15px;
+  text-decoration: none;
+  background-color: aqua;
+  padding: 5px;
+  border-radius: 5px;
+  color:blue;
+  transition: 0.5s linear;
+}
+
+.right-item:hover{
+  background-color: aquamarine;
+}
+
+a{
+  text-decoration: none;
+}
+
+i{
+  font-size: 50px;
+  transition: 0.5s linear;
+}
+
+i:hover{
+  color: aquamarine;
+}
