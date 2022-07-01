@@ -1,1 +1,40 @@
 /* You can add global styles to this file, and also import other style files */
+
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap");
+@import url("https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css");
+
+*{
+  font-family: "Poppins", sans-serif;
+  margin: 0px;
+  padding: 0px;
+}
+
+body{
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.navbar{
+  position: sticky;
+  display:flex;
+  height: 60px;
+  justify-content: space-between;
+  align-items: center;
+  background-color: black;
+}
+
+.navbar-left{
+  margin: 0px 0px 0px 10px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.navbar-right{
+  margin: 0px 10px 0px 0px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
