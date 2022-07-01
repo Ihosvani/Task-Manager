@@ -17,7 +17,9 @@ body{
 }
 
 .navbar{
-  position: sticky;
+  width: 100%;
+  position: fixed;
+  justify-self: flex-start;
   display:flex;
   height: 60px;
   justify-content: space-between;
@@ -36,5 +38,25 @@ body{
   margin: 0px 10px 0px 0px;
   display: flex;
   justify-content: flex-end;
+  align-items: center;
+}
+
+main{
+  flex: 1;
+}
+
+.footer{
+  justify-self: flex-end;
+  height: 150px;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: gainsboro;
+}
+
+.footer-item{
+  display: flex;
+  justify-content: center;
   align-items: center;
 }
