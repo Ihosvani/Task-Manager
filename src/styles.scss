@@ -43,11 +43,47 @@ body{
 
 main{
   flex: 1;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background: linear-gradient(to right, rgba(0, 0, 255, 0.5) , rgba(127, 255, 212, 0.5));
+}
+
+.container{
+  margin: 20px 0px 20px 0px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  border: 1px outset rgb(214, 214, 214);
+}
+
+.container-outer{
+  flex-direction: column;
+  padding: 5px;
+  width: 500px;
+  max-height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px outset beige;
+}
+
+.container-title{
+  width: 100%;
+  text-align: center;
+}
+
+[required]::after{
+  color: red;
+  content: "*";
 }
 
 .footer{
   justify-self: flex-end;
-  height: 150px;
+  height: 100px;
   width: 100%;
   display: flex;
   justify-content: space-around;
@@ -59,4 +95,31 @@ main{
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+button{
+  font-size: medium;
+  width: 100px;
+  height: 40px;
+  background-color: rgba(0, 255, 255, 0.5);
+  border: none;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+button:active{
+
+  background-color: aquamarine;
+}
+
+input {
+  border-radius: 5px;
+}
+
+textarea{
+  border-radius: 10px
+}
+
+[error]{
+  border-color:red;
 }

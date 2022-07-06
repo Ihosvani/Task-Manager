@@ -1,0 +1,43 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+generator angularClient {
+  provider = "prisma-client-js"
+  output = "../../node_modules/@prisma/client"
+}
+
+generator nestgraphql {
+  provider               = "node node_modules/prisma-nestjs-graphql"
+  output                 = "../@generated/prisma-graphql"
+  reExport               = Directories
+  purgeOutput            = true
+  fields_Validator_from  = "class-validator"
+  fields_Validator_input = true
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User{
+  id Int @default(autoincrement()) @id
+  name String @unique
+  email String @unique
+  passwordHash String
+  tasks Task[]
+}
+
+model Task{
+  id Int @default(autoincrement()) @id
+  authorId Int
+  author User @relation(fields:[authorId], references: [id])
+  name String
+  description String?
+  date String
+  time String
+}
