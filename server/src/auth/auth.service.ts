@@ -1,7 +1,8 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import * as argon2 from 'argon2';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { JwtService } from '@nestjs/jwt';
+import { User } from '@generated/prisma-graphql/user';
 @Injectable()
 export class AuthService {
   constructor(
@@ -11,6 +12,15 @@ export class AuthService {
 
   public async register(data: any) {
     try {
+      if (
+        await this.$prismaService.user.findUnique({
+          where: {
+            email: data.email,
+          },
+        })
+      ) {
+        throw new BadRequestException('User already existent');
+      }
       const passwordHash = await argon2.hash(data.password);
       await this.$prismaService.user.create({
         data: {
@@ -23,23 +33,12 @@ export class AuthService {
       return {
         message: 'success creating user',
       };
-    } catch (error) {
-      console.log(error);
+    } catch (err) {
+      return err;
     }
   }
 
-  public async login(data: any) {
-    const { passwordHash, ...user } = await this.$prismaService.user.findUnique(
-      {
-        where: {
-          email: data.email,
-        },
-      },
-    );
-
-    if (!(await argon2.verify(passwordHash, data.password))) {
-      throw new UnauthorizedException("Password didn't match");
-    }
+  public async login(user: User) {
     const jwt = this.$jwtService.sign(
       {
         userId: user.id,
@@ -49,8 +48,23 @@ export class AuthService {
       },
     );
 
-    data.response.cookie('jwt', jwt, { httpOnly: true });
+    return {
+      token: jwt,
+    };
+  }
 
+  public async validateUser(email: string, password: string) {
+    const { passwordHash, ...user } = await this.$prismaService.user.findUnique(
+      {
+        where: {
+          email: email,
+        },
+      },
+    );
+
+    if (!(await argon2.verify(passwordHash, password))) {
+      return null;
+    }
     return user;
   }
 }

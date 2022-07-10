@@ -9,6 +9,7 @@ import { PrismaService } from './prisma/prisma.service';
 import { AuthModule } from './auth/auth.module';
 import { JwtStrategy } from './auth/jwt.strategy';
 import { JwtModule, JwtService } from '@nestjs/jwt';
+import { TaskResolver } from './task/task.resolver';
 @Module({
   imports: [
     GraphQLModule.forRoot<ApolloDriverConfig>({
@@ -27,6 +28,6 @@ import { JwtModule, JwtService } from '@nestjs/jwt';
     AuthModule,
   ],
   controllers: [AppController],
-  providers: [AppService, UserResolver, PrismaService, JwtStrategy, JwtService],
+  providers: [AppService, UserResolver, PrismaService, JwtStrategy, JwtService, TaskResolver],
 })
 export class AppModule {}
