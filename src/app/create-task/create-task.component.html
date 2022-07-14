@@ -1,39 +1,25 @@
 <div class="container-outer" style="margin: 80px 0px 0px 0px;">
-  <h1 class="container-title">
-    Task Manager
-  </h1>
+  <h1 class="container-title">Create task</h1>
   <form [formGroup]="taskForm" class="container" (ngSubmit)="onSubmit()">
-    <label for="name" required="required" >
-      Name
-    </label>
-    <input placeholder="Name of the task" id="name" type="text" class="name" formControlName="name" minlength="1">
-    <p *ngIf="nameIsInvalid" style="color: red; font-size: small;">
-      Name of the task is required
-    </p>
+    <label for="name" required="required" >Name</label>
+    <input placeholder="Name of the task" id="name" type="text" class="name {{this.taskForm.get('name')?.errors ? 'error' : 'noError'}}" formControlName="name" minlength="1">
+    <div *ngIf="this.taskForm.get('name')?.errors?.['required']">Name of the task is required</div>
 
-    <label for="description">
-      Description
-    </label>
+    <label for="description">Description</label>
     <textarea placeholder="Brief description of the task" name="" id="description" cols="30" rows="5" formControlName="description"></textarea>
 
-    <label for="date" required="required">
-      Date
-    </label>
+    <label for="date" required="required">Date</label>
     <input id="date" type="date" formControlName="date">
-    <p *ngIf="dateIsInvalid" style="color: red; font-size: small;">
-      Date of the task is required
-    </p>
+    <div *ngIf="this.taskForm.get('date')?.errors?.['required']">Date of the task is required</div>
 
-    <label for="time" required="required">
-      Hour
-    </label>
+    <label for="time" required="required">Hour</label>
     <input id="time" type="time" formControlName="time">
-    <p *ngIf="timeIsInvalid" style="color: red; font-size: small;">
-      Time of the task is required
-    </p>
+    <div *ngIf="this.taskForm.get('time')?.errors?.['required']">Time of the task is required</div>
+
+
 
     <button type="submit" style="margin: 10px 0px 10px 0px;">Add task</button>
-    <p  *ngIf="taskAdded" style="color: green; font-size: small;">Task added succesfully</p>
+    <!-- <div *ngIf="this.taskForm.get('time')?.errors?.['required']">Task added succesfully</div> -->
   </form>
 
 </div>

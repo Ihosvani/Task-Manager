@@ -1,0 +1,24 @@
+<div class="container" style="width: 450px; height: 600;">
+  <h1 class="container-title">Register</h1>
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="container">
+      <label for="name" required>Username</label>
+      <input type="text" formControlName="name" class="{{registerForm.get('name').errors ? 'error': 'noError'}}">
+      <div *ngIf="registerForm.get('name').errors?.['required']">Name is required</div>
+
+      <label for="email" required>Email</label>
+      <input type="text" formControlName="email" class="{{registerForm.get('email').errors ? 'error': 'noError'}}">
+      <div *ngIf="registerForm.get('email').errors?.['email']">Email need to be valid</div>
+
+      <label for="password" required>Password</label>
+      <input type="password" formControlName="password" class="{{registerForm.get('password').errors ? 'error': 'noError'}}">
+      <div *ngIf="registerForm.get('password').errors?.['minlength']">Password minimun length is 8 characters</div>
+      <div *ngIf="registerForm.get('password').errors?.['pattern']">Password needs to have 1 letter upercase and undercarse, a number and a special character</div>
+
+      <label for="password" required>Confirm password</label>
+      <input type="password" formControlName="confirmPassword" class="{{registerForm.get('confirmPassword').errors ? 'error': 'noError'}}">
+      <div *ngIf="registerForm.get('confirmPassword').value != registerForm.get('password').value">Password confirmation needs to be the same as password</div>
+
+      <button type="submit" [disabled]="registerForm.pristine || !registerForm.valid">Register</button>
+      <div *ngIf="(hasErrors | async)">Error creating new user: {{error}}</div>
+    </form>
+</div>
