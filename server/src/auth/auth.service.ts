@@ -1,4 +1,8 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import * as argon2 from 'argon2';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { JwtService } from '@nestjs/jwt';
@@ -54,13 +58,17 @@ export class AuthService {
   }
 
   public async validateUser(email: string, password: string) {
-    const { passwordHash, ...user } = await this.$prismaService.user.findUnique(
-      {
-        where: {
-          email: email,
-        },
+    const lookUser = await this.$prismaService.user.findUnique({
+      where: {
+        email: email,
       },
-    );
+    });
+
+    if (!lookUser) {
+      return null;
+    }
+
+    const { passwordHash, ...user } = lookUser;
 
     if (!(await argon2.verify(passwordHash, password))) {
       return null;

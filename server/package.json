@@ -21,6 +21,7 @@
     "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
+    "@apollo/client": "^3.6.9",
     "@nestjs/apollo": "^10.0.16",
     "@nestjs/common": "^8.0.0",
     "@nestjs/core": "^8.0.0",
@@ -29,6 +30,7 @@
     "@nestjs/passport": "^9.0.0",
     "@nestjs/platform-express": "^8.0.0",
     "@prisma/client": "^4.0.0",
+    "apollo-angular": "^3.0.1",
     "apollo-server-express": "^3.9.0",
     "argon2": "^0.28.7",
     "class-transformer": "^0.5.1",
