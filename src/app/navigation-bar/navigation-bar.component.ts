@@ -19,7 +19,11 @@ export class NavigationBarComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
-
+    this.$storageMap.get('user').subscribe((user : User) => {
+      if(user){
+        this.$userService.login(user);
+      }
+    })
   }
 
   public get user(){
