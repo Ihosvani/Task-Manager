@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { StorageMap } from '@ngx-pwa/local-storage';
 import { Task } from '@prisma/client';
+import { Apollo } from 'apollo-angular';
+import { User } from 'server/@generated/prisma-graphql/user';
 
 @Component({
   selector: 'app-create-task',
@@ -9,21 +12,13 @@ import { Task } from '@prisma/client';
 })
 export class CreateTaskComponent implements OnInit {
 
-  taskAdded: boolean = false;
-  nameIsInvalid: boolean = false;
-  dateIsInvalid: boolean = false;
-  timeIsInvalid: boolean = false;
+  task?: Task;
 
-  task: Task = {
-    name: 'Default',
-    date: 'Default',
-    time: 'Default',
-    id: 0,
-    authorId: 0,
-    description: null
-  };
-
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(
+    private readonly formBuilder: FormBuilder,
+    private readonly $storageMap: StorageMap,
+    private readonly $apollo : Apollo
+    ) {}
 
   taskForm = this.formBuilder.group({
     name: ['', Validators.required],
@@ -34,23 +29,23 @@ export class CreateTaskComponent implements OnInit {
 
   onSubmit(): void{
 
-    // this.nameIsInvalid = !Boolean(this.taskForm.get('name')?.valid);
-    // this.dateIsInvalid = !Boolean(this.taskForm.get('date')?.valid);
-    // this.timeIsInvalid = !Boolean(this.taskForm.get('time')?.valid);
+    if(this.taskForm.invalid){
+      return;
+    }
 
-    // if(this.taskForm.valid){
-    //   this.task = {
-    //     name: this.taskForm.get('name')?.value,
-    //     description:  this.taskForm.get('description')?.value,
-    //     date: this.taskForm.get('date')?.value,
-    //     time: this.taskForm.get('time')?.value
-    //   }
 
-    //   this.taskForm.get('name')?.setValue('');
-    //   this.taskForm.get('date')?.setValue('');
-    //   this.taskForm.get('time')?.setValue('');
-    // }
+    this.task = {
+      id : 0,
+      name: this.taskForm.get('name')?.value,
+      description:  this.taskForm.get('description')?.value,
+      date: this.taskForm.get('date')?.value,
+      time: this.taskForm.get('time')?.value,
+      authorId: (this.$storageMap.get('user') as unknown as User)?.id
+    }
 
+    this.taskForm.get('name')?.setValue('');
+    this.taskForm.get('date')?.setValue('');
+    this.taskForm.get('time')?.setValue('');
 
   }
 
