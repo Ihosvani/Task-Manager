@@ -5,9 +5,10 @@
     </a>
   </div>
   <div class="navbar-right">
-    <a class="right-item" routerLink="">Task Manager</a>
-    <a class="right-item" routerLink="register">Register</a>
-    <a class="right-item" routerLink="login">Login</a>
+    <a class="right-item" routerLink="/tasks">Task Manager</a>
+    <a class="right-item" routerLink="/register" *ngIf="user == null">Register</a>
+    <a class="right-item" routerLink="/login" *ngIf="user == null">Login</a>
     <a class="right-item" href="http://IhosvaniPortfolio.com" target="_blank">Other Projects</a>
+    <a class="right-item" routerLink="/" (click)="logout()" *ngIf="user != null">Logout</a>
   </div>
 </div>

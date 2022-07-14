@@ -77,3 +77,5 @@ lerna-debug.log*
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+src/app/graphql.module.ts
+src/app/headers-interceptor.ts

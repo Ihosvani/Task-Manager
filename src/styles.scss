@@ -44,8 +44,8 @@ body{
 main{
   flex: 1;
   display: flex;
-  justify-content: space-around;
   align-items: center;
+  justify-content: center;
   background: linear-gradient(to right, rgba(0, 0, 255, 0.5) , rgba(127, 255, 212, 0.5));
 }
 
@@ -98,6 +98,7 @@ main{
 }
 
 button{
+  margin: 10px 0px 10px 0px;
   font-size: medium;
   width: 100px;
   height: 40px;
@@ -105,11 +106,30 @@ button{
   border: none;
   padding: 5px;
   border-radius: 5px;
+  color:white;
+  transition: 0.5s linear;
+}
+
+button:hover{
+  background-color: aquamarine;
+  color:black
 }
 
 button:active{
+  background-color: black;
+  color:white;
+}
 
-  background-color: aquamarine;
+button:disabled{
+  margin: 10px 0px 10px 0px;
+  font-size: medium;
+  width: 100px;
+  height: 40px;
+  background-color: rgba(0, 255, 255, 0.1)!important;
+  border: none;
+  padding: 5px;
+  border-radius: 5px;
+  color:white;
 }
 
 input {
@@ -120,6 +140,28 @@ textarea{
   border-radius: 10px
 }
 
-[error]{
+.error{
+  color: red;
   border-color:red;
+}
+
+.noError{
+  border-color: rgb(124, 207, 0);
+}
+
+.errorMessage{
+  color: red;
+}
+
+label, input, textarea{
+  margin: 7px 0px 3px 0px;
+}
+
+.name{
+  width: 300px;
+}
+
+input:active{
+  border-color: none;
+  border: none;
 }

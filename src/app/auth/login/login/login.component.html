@@ -1,0 +1,17 @@
+<div class="container" style="width: 450px">
+  <h1 class="container-title">Login</h1>
+  <form  class="container" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <label for="email" required>Email</label>
+    <input type="text" name="email" formControlName="email" class="{{this.loginForm.get('email').errors ? 'error' : 'noError'}}">
+    <div *ngIf="loginForm.get('email').errors?.['email']">Needs to be a valid email</div>
+
+    <label for="password" required>Password</label>
+    <input type="password" name="password" formControlName="password" class="{{this.loginForm.get('password').errors ? 'error' : 'noError'}}">
+    <div *ngIf="loginForm.get('password').errors?.['minlength']">Password minimun length is 8 characters</div>
+    <div *ngIf="loginForm.get('password').errors?.['pattern']">Password needs to have 1 letter upercase and undercarse, a number and a special character</div>
+
+    <button class="submit" type="submit" [disabled]="loginForm.pristine || !loginForm.valid">Log in</button>
+    <div *ngIf="(hasErrors | async)">Error trying to login: {{error}}</div>
+  </form>
+</div>
+
